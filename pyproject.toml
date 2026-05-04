@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sav_mig_data"
+version = "0.1.0"
+description = "Convert SA-V (or similar) datasets into MIG training cache"
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+license = { text = "Apache-2.0" }
+authors = [{ name = "MIG Data Pipeline" }]
+
+dependencies = [
+    # PyTorch (实际安装由 install.sh 显式从 pytorch index 装,此处只声明依赖)
+    "torch>=2.1",
+    "torchvision>=0.16",
+
+    # 核心 ML
+    # diffusers 为 AutoencoderKLWan 必需 (>=0.31)
+    "diffusers>=0.31.0,<0.36.0",
+    # transformers 必须 >=4.57 (Qwen3-VL 类) 但 UMT5EncoderModel 也在这个版本里
+    "transformers>=4.57.0,<4.60.0",
+    "accelerate>=1.1.0",
+    "tokenizers>=0.20.3",
+
+    # 数值/图像/视频
+    "numpy>=1.23.5,<2",
+    "Pillow>=10.0",
+    "opencv-python>=4.9.0.80",
+    "decord",            # 失败时可换 eva-decord
+    "imageio",
+    "imageio-ffmpeg",
+
+    # SA-V mask 解码
+    "pycocotools",
+
+    # VLM caption 工具
+    "qwen-vl-utils>=0.0.8",
+    "requests>=2.31",
+    "tenacity>=8.2",
+
+    # HF 模型管理
+    "huggingface_hub>=0.24.0",
+
+    # 通用
+    "PyYAML>=6.0",
+    "tqdm",
+    "psutil>=5.9",
+]
+
+[project.optional-dependencies]
+flash = [
+    "flash-attn>=2.7.0",     # VLM 加速,装不上可去掉
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
