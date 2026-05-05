@@ -54,11 +54,11 @@ from typing import Optional
 import numpy as np
 from PIL import Image
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-from sav_mig_data.data.vlm_caller import (
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "data"))
+from vlm_caller import (
     build_caller, clean_verb_phrase, clean_global_caption,
 )
-from sav_mig_data.data.caption_prompts import (
+from caption_prompts import (
     get_object_phrase_prompt, get_global_prompt,
     select_keyframes_by_motion, select_global_keyframes,
     crop_object_keyframes,
